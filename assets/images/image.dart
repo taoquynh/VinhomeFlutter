@@ -1,0 +1,1 @@
+const logo = 'packages/vinhome/assets/images/logo.png';
