@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../utils/color.dart';
+import '../../utils/color.dart';
 
 class VinTextField extends StatelessWidget {
   final TextEditingController? controller;
@@ -63,19 +63,16 @@ class VinTextField extends StatelessWidget {
         hintStyle: TextStyle(
           color: AppColor.grayColor,
         ),
-        contentPadding: const EdgeInsets.symmetric(
-            vertical: 10, horizontal: 10),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         border: OutlineInputBorder(
-          borderSide:
-          BorderSide(color: AppColor.grayColor, width: 1),
+          borderSide: BorderSide(color: AppColor.grayColor, width: 1),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide:
-          BorderSide(color: AppColor.grayColor, width: 1),
+          borderSide: BorderSide(color: AppColor.grayColor, width: 1),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide:
-          BorderSide(color: AppColor.mainColor, width: 1),
+          borderSide: BorderSide(color: AppColor.mainColor, width: 1),
         ),
       ),
       cursorColor: AppColor.mainColor,

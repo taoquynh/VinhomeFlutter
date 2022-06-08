@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
-import '../utils/color.dart';
+import 'package:vinhome/utils/color.dart';
 
 class VinHotline extends StatelessWidget {
   final GestureTapCallback? onTapped;

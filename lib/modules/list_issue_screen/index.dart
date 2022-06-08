@@ -57,11 +57,12 @@ class _ListIssueScreenState extends State<ListIssueScreen> {
                         children: [
                           Text('Đố các fen trái này là trái gì?'),
                           Text('''Con mèo mà trèo cây cau
-Hỏi thăm chú chuột đi đâu vắng nhà
-Chú chuột đi chợ đường xa
-Mua mắm mà mua muối
-Mua mắm mà mua muối để giỗ cha
-Để giỗ cha chú mèo''')
+                              Hỏi thăm chú chuột đi đâu vắng nhà
+                              Chú chuột đi chợ đường xa
+                              Mua mắm mà mua muối
+                              Mua mắm mà mua muối để giỗ cha
+                              Để giỗ cha chú mèo
+                              ''')
                         ],
                       )
                     ],

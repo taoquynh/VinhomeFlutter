@@ -1,11 +1,14 @@
-import 'package:dio/dio.dart';
+import 'dart:developer';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:vinhome/commons/hotline.dart';
+import 'package:vinhome/apis/api_login.dart';
+import 'package:vinhome/commons/widgets/hotline.dart';
+import 'package:vinhome/commons/widgets/text_field.dart';
 import 'package:vinhome/modules/register_screen.dart';
 import 'package:vinhome/utils/color.dart';
 
-import '../commons/text_field.dart';
+import 'list_issue_screen/index.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -35,26 +38,14 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void onPressLogin() {
-    // Navigator.push(context,
-    //     MaterialPageRoute(builder: (context) => const ListIssueScreen()));
-    callApiLogin(_phone, _password);
-  }
-
-  void callApiLogin(String phone, String password) async {
-    Response response;
-    var dio = Dio();
-    var formData = FormData.fromMap({
-      'PhoneNumber': phone,
-      'Password': password,
+    login(_phone, _password, (data) {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const ListIssueScreen()));
+    }, (messageE) {
+      log('Message error $messageE');
+    }, (error) {
+      log('error $error');
     });
-
-    var formDic = {
-      'PhoneNumber': phone,
-      'Password': password,
-    };
-
-    response = await dio.post('http://report.bekhoe.vn/api/accounts/Login',
-        data: formData);
   }
 
   void onPressHotline() {

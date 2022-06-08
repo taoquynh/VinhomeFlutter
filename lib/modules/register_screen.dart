@@ -1,9 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:vinhome/commons/text_field.dart';
-
-import '../commons/hotline.dart';
-import '../utils/color.dart';
+import 'package:vinhome/commons/widgets/hotline.dart';
+import 'package:vinhome/commons/widgets/text_field.dart';
+import 'package:vinhome/utils/color.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -13,9 +12,10 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  late TextEditingController _nameController;
+  late TextEditingController _emailController;
   late TextEditingController _phoneController;
   late TextEditingController _passwordController;
-  late TextEditingController _confirmPasswordController;
 
   void onChangeMobileTextField(String value) async {}
 
@@ -24,8 +24,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void onChangeConfirmPasswordTextField(String value) async {}
 
   void onPressRegister() {}
-
-  void onPressLogin() {}
 
   void onPressHotline() {
     if (kDebugMode) {
@@ -36,16 +34,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   void initState() {
     super.initState();
+    _nameController = TextEditingController();
+    _emailController = TextEditingController();
     _phoneController = TextEditingController();
     _passwordController = TextEditingController();
-    _confirmPasswordController = TextEditingController();
   }
 
   @override
   void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
     _phoneController.dispose();
     _passwordController.dispose();
-    _confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -89,21 +89,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: Column(
                               children: [
                                 VinTextField(
-                                  controller: _phoneController,
+                                  controller: _nameController,
                                   onChanged: onChangeMobileTextField,
+                                  labelText: 'Họ & tên',
+                                ),
+                                const Padding(padding: EdgeInsets.all(8)),
+                                VinTextField(
+                                  controller: _emailController,
+                                  onChanged: onChangePasswordTextField,
+                                  labelText: 'Email',
+                                ),
+                                const Padding(padding: EdgeInsets.all(8)),
+                                VinTextField(
+                                  controller: _phoneController,
+                                  onChanged: onChangePasswordTextField,
                                   labelText: 'Số điện thoại',
                                 ),
                                 const Padding(padding: EdgeInsets.all(8)),
                                 VinTextField(
                                   controller: _passwordController,
-                                  onChanged: onChangePasswordTextField,
-                                  labelText: 'Mật khẩu',
-                                ),
-                                const Padding(padding: EdgeInsets.all(8)),
-                                VinTextField(
-                                  controller: _confirmPasswordController,
                                   onChanged: onChangeConfirmPasswordTextField,
-                                  labelText: 'Xác nhận mật khẩu',
+                                  labelText: 'Mật khẩu',
                                 ),
                                 const Padding(padding: EdgeInsets.all(15)),
                                 Row(
