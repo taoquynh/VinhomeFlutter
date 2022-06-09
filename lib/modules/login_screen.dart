@@ -1,10 +1,11 @@
-import 'dart:developer';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:vinhome/apis/api_login.dart';
+import 'package:vinhome/commons/dialogs/alert.dart';
+import 'package:vinhome/commons/widgets/fill_button.dart';
 import 'package:vinhome/commons/widgets/hotline.dart';
 import 'package:vinhome/commons/widgets/text_field.dart';
+import 'package:vinhome/models/login_arguments.dart';
 import 'package:vinhome/modules/register_screen.dart';
 import 'package:vinhome/utils/color.dart';
 
@@ -32,9 +33,16 @@ class _LoginScreenState extends State<LoginScreen> {
     _password = value;
   }
 
-  void onPressRegister() {
-    Navigator.push(context,
+  void onPressRegister(BuildContext context) async {
+    final LoginArguments? result = await Navigator.push(context,
         MaterialPageRoute(builder: (context) => const RegisterScreen()));
+
+    if (result != null) {
+      setState(() {
+        _phoneController.text = result.phone;
+        _passwordController.text = result.password;
+      });
+    }
   }
 
   void onPressLogin() {
@@ -42,9 +50,11 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => const ListIssueScreen()));
     }, (messageE) {
-      log('Message error $messageE');
+      showAlertDialog(
+          context: context, title: 'Đã có lỗi xảy ra', message: messageE);
     }, (error) {
-      log('error $error');
+      showAlertDialog(
+          context: context, title: 'Đã có lỗi xảy ra', message: error);
     });
   }
 
@@ -59,6 +69,9 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
     _phoneController = TextEditingController();
     _passwordController = TextEditingController();
+
+    _phoneController.text = '0068326697';
+    _passwordController.text = '654321';
   }
 
   @override
@@ -118,7 +131,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             Row(
                               children: [
                                 TextButton(
-                                    onPressed: onPressRegister,
+                                    onPressed: () {
+                                      onPressRegister(context);
+                                    },
                                     style: TextButton.styleFrom(
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 15, horizontal: 20)),
@@ -131,20 +146,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                     )),
                                 const Spacer(),
-                                ElevatedButton(
-                                  onPressed: onPressLogin,
-                                  style: ElevatedButton.styleFrom(
-                                    primary: AppColor.mainColor,
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15, horizontal: 35),
-                                  ),
-                                  child: Text(
-                                    'Đăng nhập',
-                                    style: TextStyle(
-                                        color: AppColor.whiteColor,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 18),
-                                  ),
+                                FillButton(
+                                  title: 'Đăng nhập',
+                                  onPress: onPressLogin,
+                                  buttonPadding: const EdgeInsets.symmetric(
+                                      vertical: 15, horizontal: 35),
+                                  textStyle: TextStyle(
+                                      color: AppColor.whiteColor,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18),
                                 )
                               ],
                             ),

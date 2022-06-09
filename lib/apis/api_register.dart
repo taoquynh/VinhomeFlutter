@@ -24,7 +24,7 @@ void register(
 
   User user;
 
-  ApiManager().request(ApiName().login, Method.post, formData, (data) async {
+  ApiManager().request(ApiName().register, Method.post, formData, (data) async {
     user = User.fromJSON(data);
     await storage.write(key: loginStorage, value: user.token);
     onSuccess(data);

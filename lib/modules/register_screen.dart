@@ -1,7 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:vinhome/apis/api_register.dart';
+import 'package:vinhome/commons/dialogs/alert.dart';
+import 'package:vinhome/commons/widgets/fill_button.dart';
 import 'package:vinhome/commons/widgets/hotline.dart';
 import 'package:vinhome/commons/widgets/text_field.dart';
+import 'package:vinhome/models/login_arguments.dart';
 import 'package:vinhome/utils/color.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -17,13 +21,39 @@ class _RegisterScreenState extends State<RegisterScreen> {
   late TextEditingController _phoneController;
   late TextEditingController _passwordController;
 
-  void onChangeMobileTextField(String value) async {}
+  String _name = '';
+  String _email = '';
+  String _phone = '';
+  String _password = '';
 
-  void onChangePasswordTextField(String value) async {}
+  void onChangeNameTextField(String value) async {
+    _name = value;
+  }
 
-  void onChangeConfirmPasswordTextField(String value) async {}
+  void onChangeEmailTextField(String value) async {
+    _email = value;
+  }
 
-  void onPressRegister() {}
+  void onChangeMobileTextField(String value) async {
+    _phone = value;
+  }
+
+  void onChangePasswordTextField(String value) async {
+    _password = value;
+  }
+
+  void onPressRegister() {
+    register(_phone, _password, _name, _email, (data) {
+      LoginArguments args = LoginArguments(_phone, _password);
+      Navigator.pop(context, args);
+    }, (messageE) {
+      showAlertDialog(
+          context: context, title: 'Đã có lỗi xảy ra', message: messageE);
+    }, (error) {
+      showAlertDialog(
+          context: context, title: 'Đã có lỗi xảy ra', message: error);
+    });
+  }
 
   void onPressHotline() {
     if (kDebugMode) {
@@ -90,45 +120,40 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               children: [
                                 VinTextField(
                                   controller: _nameController,
-                                  onChanged: onChangeMobileTextField,
+                                  onChanged: onChangeNameTextField,
                                   labelText: 'Họ & tên',
                                 ),
                                 const Padding(padding: EdgeInsets.all(8)),
                                 VinTextField(
                                   controller: _emailController,
-                                  onChanged: onChangePasswordTextField,
+                                  onChanged: onChangeEmailTextField,
                                   labelText: 'Email',
                                 ),
                                 const Padding(padding: EdgeInsets.all(8)),
                                 VinTextField(
                                   controller: _phoneController,
-                                  onChanged: onChangePasswordTextField,
+                                  onChanged: onChangeMobileTextField,
                                   labelText: 'Số điện thoại',
                                 ),
                                 const Padding(padding: EdgeInsets.all(8)),
                                 VinTextField(
                                   controller: _passwordController,
-                                  onChanged: onChangeConfirmPasswordTextField,
+                                  onChanged: onChangePasswordTextField,
                                   labelText: 'Mật khẩu',
                                 ),
                                 const Padding(padding: EdgeInsets.all(15)),
                                 Row(
                                   children: [
                                     const Spacer(),
-                                    ElevatedButton(
-                                      onPressed: () {},
-                                      style: ElevatedButton.styleFrom(
-                                        primary: AppColor.mainColor,
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 15, horizontal: 40),
-                                      ),
-                                      child: Text(
-                                        'Đăng ký',
-                                        style: TextStyle(
-                                            color: AppColor.whiteColor,
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 18),
-                                      ),
+                                    FillButton(
+                                      onPress: onPressRegister,
+                                      title: 'Đăng ký',
+                                      buttonPadding: const EdgeInsets.symmetric(
+                                          vertical: 15, horizontal: 40),
+                                      textStyle: TextStyle(
+                                          color: AppColor.whiteColor,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 18),
                                     )
                                   ],
                                 ),

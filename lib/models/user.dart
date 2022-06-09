@@ -3,8 +3,10 @@ class User {
   final String? createdAt;
   final String? createdBy;
   final String? modifiedAt;
+  final String? modifiedBy;
   final String name;
   final String? dateOfBirth;
+  final String? address;
   final bool? gender;
   final String phoneNumber;
   final String? email;
@@ -16,8 +18,10 @@ class User {
       this.createdAt,
       this.createdBy,
       this.modifiedAt,
+      this.modifiedBy,
       required this.name,
       this.dateOfBirth,
+      this.address,
       this.gender,
       required this.phoneNumber,
       this.email,
@@ -30,8 +34,10 @@ class User {
         createdAt: json['createdAt'] as String,
         createdBy: json['createdBy'] as String,
         modifiedAt: json['modifiedAt'] as String,
+        modifiedBy: json['modifiedBy'] as String,
         name: json['name'] as String,
         dateOfBirth: json['dateOfBirth'] as String,
+        address: json['address'] as String,
         gender: json['gender'] as bool,
         phoneNumber: json['phoneNumber'] as String,
         email: json['email'] as String,
